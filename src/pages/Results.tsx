@@ -118,24 +118,26 @@ export default function Results() {
                 <BarChart
                   data={comparison}
                   accessibilityLayer
-                  margin={{ top: 16, right: 5, left: -24, bottom: 4 }}
+                  margin={{ top: 16, right: 12, left: -8, bottom: 8 }}
                 >
                   <CartesianGrid vertical={false} stroke="#e8edf1" />
                   <XAxis
                     dataKey="name"
-                    tick={{ fontSize: 12 }}
+                    height={40}
+                    tickMargin={10}
+                    tick={{ fontSize: "var(--font-size-chart-label)" }}
                     tickLine={false}
                     axisLine={false}
                   />
                   <YAxis
                     domain={[0, 100]}
                     unit="%"
-                    tick={{ fontSize: 11 }}
+                    tick={{ fontSize: "var(--font-size-chart-label)" }}
                     axisLine={false}
                     tickLine={false}
                   />
                   <Tooltip formatter={(value) => `${value}%`} />
-                  <Legend iconType="circle" wrapperStyle={{ fontSize: 12 }} />
+                  <Legend iconType="circle" />
                   <Bar dataKey="Cliques" fill="#8795ad" radius={[4, 4, 0, 0]}>
                     {comparison.map((d) => (
                       <Cell
@@ -179,24 +181,26 @@ export default function Results() {
                 <LineChart
                   data={report.evolution}
                   accessibilityLayer
-                  margin={{ top: 16, right: 15, left: -24, bottom: 4 }}
+                  margin={{ top: 16, right: 15, left: -8, bottom: 8 }}
                 >
                   <CartesianGrid vertical={false} stroke="#e8edf1" />
                   <XAxis
                     dataKey="month"
-                    tick={{ fontSize: 12 }}
+                    height={40}
+                    tickMargin={10}
+                    tick={{ fontSize: "var(--font-size-chart-label)" }}
                     axisLine={false}
                     tickLine={false}
                   />
                   <YAxis
                     domain={[0, 100]}
                     unit="%"
-                    tick={{ fontSize: 11 }}
+                    tick={{ fontSize: "var(--font-size-chart-label)" }}
                     axisLine={false}
                     tickLine={false}
                   />
                   <Tooltip formatter={(value) => `${value}%`} />
-                  <Legend iconType="circle" wrapperStyle={{ fontSize: 12 }} />
+                  <Legend iconType="circle" />
                   <Line
                     type="monotone"
                     dataKey="clicks"
