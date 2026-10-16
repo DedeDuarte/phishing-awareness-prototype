@@ -7,9 +7,9 @@ export default function Team() {
   return (
     <>
       <PageHero eyebrow="PROJETO ACADÊMICO" title="Conheça nossa equipe">
-        Por trás da {brand.name}, uma construção coletiva. Um projeto de
-        Projetos Empreendedores para aproximar pessoas, educação e segurança
-        digital.
+        Conheça o grupo que desenvolveu a {brand.name}, um projeto acadêmico
+        que conecta educação e segurança digital na disciplina de Projetos
+        Empreendedores.
       </PageHero>
       <section className="section container">
         <div className="team-intro">
@@ -19,8 +19,8 @@ export default function Team() {
           <div>
             <h2>Ideias que ganham forma em equipe.</h2>
             <p>
-              Seis espaços reservados aos integrantes do trabalho. Nomes, RAs e
-              fotos serão cadastrados pela equipe.
+              Apresentamos os integrantes responsáveis pela concepção e pelo
+              desenvolvimento deste projeto de conscientização contra phishing.
             </p>
           </div>
         </div>
@@ -39,7 +39,7 @@ export default function Team() {
             campanhas, oferecer cursos reais ou coletar credenciais.
           </p>
           <ButtonLink to="/" secondary>
-            Voltar à Home
+            Voltar ao início
           </ButtonLink>
         </div>
       </section>
