@@ -227,6 +227,10 @@ ul {
 .skip-link:focus {
   top: 12px;
 }
+.navbar-slot {
+  --navbar-height: 90px;
+  height: calc(var(--navbar-height) + 1px);
+}
 .navbar {
   background: var(--color-navy-950);
   color: var(--text-on-dark);
@@ -234,8 +238,24 @@ ul {
   position: relative;
   z-index: 10;
 }
+.navbar-floating {
+  position: fixed;
+  inset: 0 0 auto;
+  box-shadow: 0 6px 16px #0003;
+}
+.navbar-hidden {
+  transform: translateY(calc(-100% - 16px));
+  pointer-events: none;
+}
+.navbar-animated {
+  transition: transform 220ms ease;
+}
+.navbar-floating:has(:focus-visible) {
+  transform: translateY(0);
+  pointer-events: auto;
+}
 .nav-inner {
-  height: 90px;
+  height: var(--navbar-height);
   display: flex;
   gap: 24px;
   align-items: center;
@@ -332,6 +352,13 @@ ul {
   padding: 8px;
 }
 .mobile-nav {
+  position: absolute;
+  inset: 100% 0 auto;
+  background: var(--color-navy-950);
+  border-bottom: 1px solid #40505a;
+  max-height: calc(100dvh - var(--navbar-height) - 1px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
   display: flex;
   flex-direction: column;
   padding: 12px 24px 24px;
@@ -1899,8 +1926,8 @@ textarea {
   }
 }
 @media (max-width: 950px) {
-  .nav-inner {
-    height: 76px;
+  .navbar-slot {
+    --navbar-height: 76px;
   }
   .brand-logo {
     font-size: 29px;
