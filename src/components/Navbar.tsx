@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import { Menu, X, ArrowUpRight } from "lucide-react";
 import { Link, NavLink } from "react-router-dom";
 import BrandLogo from "./BrandLogo";
+import ThemeToggle from "./ThemeToggle";
 
 const navigation = [
   { to: "/", label: "Início" },
@@ -25,20 +26,23 @@ export default function Navbar() {
             </NavLink>
           ))}
         </nav>
-        <Link to="/contato" className="nav-cta">
-          Solicitar demonstração
-          <ArrowUpRight size={16} aria-hidden="true" />
-        </Link>
-        <button
-          ref={toggleRef}
-          className="mobile-toggle"
-          aria-expanded={open}
-          aria-controls="mobile-nav"
-          aria-label={open ? "Fechar menu" : "Abrir menu"}
-          onClick={() => setOpen(!open)}
-        >
-          {open ? <X /> : <Menu />}
-        </button>
+        <div className="nav-actions">
+          <ThemeToggle />
+          <Link to="/contato" className="nav-cta">
+            Solicitar demonstração
+            <ArrowUpRight size={16} aria-hidden="true" />
+          </Link>
+          <button
+            ref={toggleRef}
+            className="mobile-toggle"
+            aria-expanded={open}
+            aria-controls="mobile-nav"
+            aria-label={open ? "Fechar menu" : "Abrir menu"}
+            onClick={() => setOpen(!open)}
+          >
+            {open ? <X /> : <Menu />}
+          </button>
+        </div>
       </div>
       {open && (
         <nav

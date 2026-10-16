@@ -40,6 +40,7 @@ Endereços desconhecidos mostram uma página 404 com retorno à Home. Nas abas, 
 
 - **Marca:** `src/config/brand.ts` centraliza nome, slogan, descrição, categoria e `showTeamPage`. Alterar `name` atualiza logo, textos e título do documento. Símbolo do logo independente do nome. `contactEmail` é apenas placeholder, não apresentado como contato real.
 - **Estilos:** `src/styles/globals.css` contém tokens aprovados, fontes e breakpoints.
+- **Temas:** o botão de sol/lua no cabeçalho alterna entre claro (padrão) e escuro, inclusive no mobile. Os tokens semânticos ficam em `:root` e `:root[data-theme="dark"]`; os gráficos usam as mesmas variáveis. `src/hooks/useTheme.ts` compartilha o estado e salva apenas a preferência `theme` no `localStorage`, com sincronização entre abas. O script inicial em `index.html` aplica a preferência antes da renderização para evitar flashes. Se o armazenamento estiver indisponível, a alternância continua funcionando durante a navegação.
 - **Integrantes e RAs:** editar os seis objetos em `src/data/team.ts`. Nenhum dado pessoal real é incluído por padrão.
 - **Fotos:** colocar arquivos locais em `public/team/`. Exemplo: `/team/integrante-01.webp`. Fotos ausentes ou com erro têm avatar genérico.
 - **Dados fictícios:** `src/data/mockData.ts` contém cenários, cursos e métricas tipadas com IDs estáveis. Totais e taxas gerais são derivados dos departamentos; evolução geral ponderada pelo número de participantes. Risco ilustrativo: até 10% de cliques, baixo; acima de 10% até 20%, moderado; acima de 20%, elevado.
@@ -84,6 +85,14 @@ Sem backend, segredos, integrações ou serviços a provisionar. Este repositór
 - Abas por clique e teclado, quatro etapas, quatro filtros e seus links de treinamento, query inválida, validação e sucesso do formulário, limpeza dos campos, menu móvel e seis avatares de fallback.
 - Troca temporária de marca/slogan, desativação da equipe e edição de nome/RA/foto, incluindo imagem com erro; configurações originais restauradas após os testes.
 - 18 análises automáticas com axe-core (WCAG 2 A/AA e 2.1 AA), em desktop e mobile: nenhuma violação detectada. Isso não substitui uma avaliação completa com tecnologias assistivas.
-- Durante os fluxos testados: nenhuma requisição a serviço externo, envio de formulário ou gravação em localStorage/sessionStorage.
+- Durante os fluxos testados: nenhuma requisição a serviço externo ou envio de formulário. Apenas a preferência de tema é salva em `localStorage`; os dados do formulário não são persistidos.
 
 Playwright e axe-core foram usados por ferramentas temporárias de QA, sem adicioná-los às dependências do aplicativo.
+
+### Validação dos temas
+
+- Chrome headless via DevTools: oito rotas nos dois temas, em 1440, 768, 375 e 360 px (64 combinações), sem overflow horizontal ou exceções JavaScript.
+- Alternância por Enter e Espaço, navegação SPA, recarga, reabertura em outra aba e sincronização entre abas. Tema salvo aplicado no primeiro frame; preferência inválida usa claro. Armazenamento bloqueado não impede a alternância.
+- Simulações, quatro etapas, seleção de cursos, aviso de curso inválido, filtros do relatório, tooltips, erros e sucesso do formulário, e menu móvel exercitados nos dois temas em desktop e mobile.
+- Inspeção de capturas de Home, Resultados, Contato e Equipe. Verificação de contraste dos textos por cores computadas nas oito páginas em ambos os temas, sem ocorrências abaixo dos limites AA nessa verificação; não substitui uma auditoria completa de acessibilidade.
+- Ferramentas temporárias de QA, sem novas dependências no projeto.

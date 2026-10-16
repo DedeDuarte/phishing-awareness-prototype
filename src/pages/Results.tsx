@@ -29,6 +29,22 @@ import {
   type DepartmentId,
 } from "../data/mockData";
 import { ButtonLink, DemoBadge, PageHero } from "../components/ui";
+const tooltipStyles = {
+  contentStyle: {
+    backgroundColor: "var(--surface-card)",
+    border: "1px solid var(--border-input)",
+    borderRadius: 8,
+    color: "var(--text-primary)",
+  },
+  labelStyle: { color: "var(--text-primary)" },
+  itemStyle: { color: "var(--text-secondary)" },
+  cursor: { fill: "var(--chart-cursor)", stroke: "var(--text-muted)" },
+};
+
+function legendLabel(value: string) {
+  return <span className="chart-legend-label">{value}</span>;
+}
+
 export default function Results() {
   const [selected, setSelected] = useState<DepartmentId>("geral");
   const report = reports.find((r) => r.id === selected)!;
@@ -120,25 +136,38 @@ export default function Results() {
                   accessibilityLayer
                   margin={{ top: 16, right: 12, left: -8, bottom: 8 }}
                 >
-                  <CartesianGrid vertical={false} stroke="#e8edf1" />
+                  <CartesianGrid
+                    vertical={false}
+                    stroke="var(--chart-grid)"
+                  />
                   <XAxis
                     dataKey="name"
                     height={40}
                     tickMargin={10}
-                    tick={{ fontSize: "var(--font-size-chart-label)" }}
+                    tick={{
+                      fontSize: "var(--font-size-chart-label)",
+                      fill: "var(--text-muted)",
+                    }}
                     tickLine={false}
                     axisLine={false}
                   />
                   <YAxis
                     domain={[0, 100]}
                     unit="%"
-                    tick={{ fontSize: "var(--font-size-chart-label)" }}
+                    tick={{
+                      fontSize: "var(--font-size-chart-label)",
+                      fill: "var(--text-muted)",
+                    }}
                     axisLine={false}
                     tickLine={false}
                   />
-                  <Tooltip formatter={(value) => `${value}%`} />
-                  <Legend iconType="circle" />
-                  <Bar dataKey="Cliques" fill="#8795ad" radius={[4, 4, 0, 0]}>
+                  <Tooltip {...tooltipStyles} formatter={(value) => `${value}%`} />
+                  <Legend iconType="circle" formatter={legendLabel} />
+                  <Bar
+                    dataKey="Cliques"
+                    fill="var(--chart-clicks)"
+                    radius={[4, 4, 0, 0]}
+                  >
                     {comparison.map((d) => (
                       <Cell
                         key={d.id}
@@ -148,7 +177,11 @@ export default function Results() {
                       />
                     ))}
                   </Bar>
-                  <Bar dataKey="Reportes" fill="#0f766e" radius={[4, 4, 0, 0]}>
+                  <Bar
+                    dataKey="Reportes"
+                    fill="var(--chart-reports)"
+                    radius={[4, 4, 0, 0]}
+                  >
                     {comparison.map((d) => (
                       <Cell
                         key={d.id}
@@ -183,29 +216,38 @@ export default function Results() {
                   accessibilityLayer
                   margin={{ top: 16, right: 15, left: -8, bottom: 8 }}
                 >
-                  <CartesianGrid vertical={false} stroke="#e8edf1" />
+                  <CartesianGrid
+                    vertical={false}
+                    stroke="var(--chart-grid)"
+                  />
                   <XAxis
                     dataKey="month"
                     height={40}
                     tickMargin={10}
-                    tick={{ fontSize: "var(--font-size-chart-label)" }}
+                    tick={{
+                      fontSize: "var(--font-size-chart-label)",
+                      fill: "var(--text-muted)",
+                    }}
                     axisLine={false}
                     tickLine={false}
                   />
                   <YAxis
                     domain={[0, 100]}
                     unit="%"
-                    tick={{ fontSize: "var(--font-size-chart-label)" }}
+                    tick={{
+                      fontSize: "var(--font-size-chart-label)",
+                      fill: "var(--text-muted)",
+                    }}
                     axisLine={false}
                     tickLine={false}
                   />
-                  <Tooltip formatter={(value) => `${value}%`} />
-                  <Legend iconType="circle" />
+                  <Tooltip {...tooltipStyles} formatter={(value) => `${value}%`} />
+                  <Legend iconType="circle" formatter={legendLabel} />
                   <Line
                     type="monotone"
                     dataKey="clicks"
                     name="Cliques"
-                    stroke="#8795ad"
+                    stroke="var(--chart-clicks)"
                     strokeWidth={2.5}
                     dot={{ r: 4 }}
                   />
@@ -213,7 +255,7 @@ export default function Results() {
                     type="monotone"
                     dataKey="reports"
                     name="Reportes"
-                    stroke="#0f766e"
+                    stroke="var(--chart-reports)"
                     strokeWidth={2.5}
                     dot={{ r: 4 }}
                   />
